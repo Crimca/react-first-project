@@ -18,14 +18,66 @@ const [filteredYear, setFilteredYear] = useState('2023');
        return expense.date.getFullYear().toString() === filteredYear;
       });
 
+      let expensesContent = <p>No expenses found.</p>;
+
+      if (filteredExpenses.length > 0) {
+            expensesContent = filteredExpenses.map((expense) => (
+                  <ExpenseItem
+                  key={expense.id}
+                  title={expense.title}
+                  amount={expense.amount}
+                  date={expense.date}
+            />
+            ));
+      }
+
       return (
+            <Card className="expenses">
+          <ExpensesFilter
+            selected={filteredYear}
+            onChangeFilter={filterChangeHandler}
+          />
+          {expensesContent}
+          </Card>
+      );
+}
+
+export default Expenses;
+
+/* return (
         <Card className="expenses">
           <ExpensesFilter
             selected={filteredYear}
             onChangeFilter={filterChangeHandler}
           />
-      {filteredExpenses.map((expense) => (
-            //{props.items.map((expense) => (
+      {filteredExpenses.length === 0 ? (
+            <p>No expenses found.</p>
+      ) : (
+            filteredExpenses.map((expense) => (
+      <ExpenseItem
+            key={expense.id}
+            title={expense.title}
+            amount={expense.amount}
+            date={expense.date}
+            />
+      ))
+      )}
+      </Card>
+    );
+}
+
+export default Expenses; 
+
+/* Toinen vaihtoehto
+ return (
+        <Card className="expenses">
+          <ExpensesFilter
+            selected={filteredYear}
+            onChangeFilter={filterChangeHandler}
+          />
+      {filteredExpenses.length === 0 && <p>No expenses found.</p>}
+      {filteredExpenses.length > 0 &&
+            filteredExpenses.map((expense) => (
       <ExpenseItem
             key={expense.id}
             title={expense.title}
@@ -33,8 +85,9 @@ const [filteredYear, setFilteredYear] = useState('2023');
             date={expense.date}
             />
       ))}
-      </Card>
-    );
-}
+       </Card>
+      ); 
+    }
 
 export default Expenses;
+*/
