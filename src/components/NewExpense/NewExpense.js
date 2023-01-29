@@ -35,6 +35,8 @@ const NewExpense = (props) => {
              onCancel={stopEditingHandler}
              />
             )}
+
+            
         </div>
     );
 };
